@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PaisesApp.ViewModels"
+             x:Class="PaisesApp.DetallePage"
+             Title="Detalle del País">
+
+    <VerticalStackLayout Padding="25" Spacing="16">
+
+        <Label Text="🌍 Detalle del País"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Border Padding="18" StrokeShape="RoundRectangle 12" Stroke="#1565C0">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="País" FontSize="12" TextColor="Gray"/>
+                <Label Text="{Binding Nombre}"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="#1565C0"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Padding="18" StrokeShape="RoundRectangle 12" Stroke="#DDDDDD">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Capital" FontSize="12" TextColor="Gray"/>
+                <Label Text="{Binding Capital}"
+                       FontSize="20"
+                       FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Padding="18" StrokeShape="RoundRectangle 12" Stroke="#DDDDDD">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Región" FontSize="12" TextColor="Gray"/>
+                <Label Text="{Binding Region}" FontSize="18"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Padding="18" StrokeShape="RoundRectangle 12" Stroke="#DDDDDD">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Población" FontSize="12" TextColor="Gray"/>
+                <Label Text="{Binding Poblacion}" FontSize="18"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Button Text="← Volver"
+                Clicked="OnVolverClicked"
+                BackgroundColor="#757575"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="48"
+                Margin="0,10,0,0"/>
+
+    </VerticalStackLayout>
+</ContentPage>
