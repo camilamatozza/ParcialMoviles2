@@ -1,11 +1,11 @@
-﻿namespace PaisesApp
+﻿namespace PaisesApp;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-            Routing.RegisterRoute("detalle", typeof(DetallePage));
-        }
+        InitializeComponent();
+        Routing.RegisterRoute("detalle", typeof(DetallePage));
+        Routing.RegisterRoute("sensores", typeof(SensoresPage));
     }
 }

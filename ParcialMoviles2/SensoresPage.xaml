@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PaisesApp.SensoresPage"
+             Title="Sensores">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+
+        <Label Text="📍 Sensores y Hardware"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Button Text="📷 Tomar Foto"
+                x:Name="BtnFoto"
+                Clicked="OnTomarFotoClicked"
+                BackgroundColor="#1565C0"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="48"/>
+
+        <Image x:Name="FotoPreview"
+               HeightRequest="200"
+               Aspect="AspectFit"
+               IsVisible="False"/>
+
+        <Button Text="📍 Obtener Ubicación"
+                x:Name="BtnUbicacion"
+                Clicked="OnObtenerUbicacionClicked"
+                BackgroundColor="#2E7D32"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="48"/>
+
+        <Label x:Name="LblUbicacion"
+               Text="Ubicación no obtenida"
+               FontSize="13"
+               TextColor="Gray"
+               HorizontalOptions="Center"/>
+
+        <Button Text="📳 Vibrar"
+                Clicked="OnVibrarClicked"
+                BackgroundColor="#6A1B9A"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="48"/>
+
+    </VerticalStackLayout>
+</ContentPage>

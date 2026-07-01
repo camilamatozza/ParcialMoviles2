@@ -26,4 +26,9 @@ public partial class MainPage : ContentPage
                 $"&poblacion={Uri.EscapeDataString(pais.PoblacionTexto)}");
         }
     }
+
+    private async void OnSensoresClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("sensores");
+    }
 }

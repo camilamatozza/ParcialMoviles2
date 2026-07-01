@@ -18,13 +18,20 @@
                 CornerRadius="10"
                 HeightRequest="48"/>
 
+        <Button Text="📍 Cámara y Ubicación"
+                Clicked="OnSensoresClicked"
+                BackgroundColor="#2E7D32"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="48"/>
+
         <Label Text="{Binding Mensaje}"
                FontSize="13"
                TextColor="Gray"
                HorizontalOptions="Center"/>
 
         <CollectionView ItemsSource="{Binding Paises}"
-                        HeightRequest="520">
+                        HeightRequest="480">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Margin="0,4" Padding="14"
