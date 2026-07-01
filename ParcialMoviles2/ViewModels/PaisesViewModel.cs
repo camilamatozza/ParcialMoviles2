@@ -1,74 +1,58 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PaisesApp.Models;
 using PaisesApp.Services;
 
-namespace PaisesApp.ViewModels
+namespace PaisesApp.ViewModels;
+
+public partial class PaisesViewModel : ObservableObject
 {
-    public class PaisesViewModel : INotifyPropertyChanged
+    private readonly IPaisService _service;
+
+    public ObservableCollection<Pais> Paises { get; set; }
+        = new ObservableCollection<Pais>();
+
+    [ObservableProperty]
+    private string _mensaje = "Tocá el botón para cargar los países";
+
+    [ObservableProperty]
+    private bool _cargando;
+
+    public PaisesViewModel(IPaisService service)
     {
-        private readonly PaisService _service;
+        _service = service;
+    }
 
-        public ObservableCollection<Pais> Paises { get; set; }
-            = new ObservableCollection<Pais>();
+    [RelayCommand]
+    private async Task CargarPaises()
+    {
+        if (Cargando) return;
 
-        private string _mensaje = "Tocá el botón para cargar los países";
-        public string Mensaje
+        try
         {
-            get => _mensaje;
-            set { _mensaje = value; OnPropertyChanged(); }
-        }
+            Cargando = true;
+            Mensaje = "⏳ Cargando países...";
+            Paises.Clear();
 
-        private bool _cargando = false;
-        public bool Cargando
+            var lista = await _service.GetPaisesAsync();
+
+            foreach (var p in lista)
+                Paises.Add(p);
+
+            Mensaje = $"✅ {lista.Count} países cargados";
+        }
+        catch (HttpRequestException)
         {
-            get => _cargando;
-            set { _cargando = value; OnPropertyChanged(); }
+            Mensaje = "❌ Sin conexión o error del servidor. Intentá de nuevo.";
         }
-
-        public ICommand CargarCommand { get; }
-
-        public PaisesViewModel()
+        catch (Exception)
         {
-            _service = new PaisService();
-            CargarCommand = new Command(async () => await CargarPaises());
+            Mensaje = "❌ Ocurrió un error inesperado. Intentá de nuevo.";
         }
-
-        private async Task CargarPaises()
+        finally
         {
-            if (Cargando) return;
-
-            try
-            {
-                Cargando = true;
-                Mensaje = "⏳ Cargando países...";
-                Paises.Clear();
-
-                var lista = await _service.GetPaisesAsync();
-
-                foreach (var p in lista)
-                    Paises.Add(p);
-
-                Mensaje = $"✅ {lista.Count} países cargados";
-            }
-            catch (HttpRequestException)
-            {
-                Mensaje = "❌ Sin conexión o error del servidor. Intentá de nuevo.";
-            }
-            catch (Exception)
-            {
-                Mensaje = "❌ Ocurrió un error inesperado. Intentá de nuevo.";
-            }
-            finally
-            {
-                Cargando = false;
-            }
+            Cargando = false;
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string nombre = "")
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
     }
 }

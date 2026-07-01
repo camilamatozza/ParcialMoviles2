@@ -1,26 +1,37 @@
 ﻿using Microsoft.Extensions.Logging;
 using PaisesApp;
+using PaisesApp.Services;
+using PaisesApp.ViewModels;
 
-namespace ParcialMoviles2
+namespace ParcialMoviles2;
+
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
-        }
+        // Servicios
+        builder.Services.AddSingleton<IPaisService, PaisService>();
+        builder.Services.AddSingleton<IFavoritosRepository, FavoritosRepository>();
+
+        // ViewModels
+        builder.Services.AddSingleton<PaisesViewModel>();
+
+        // Pages
+        builder.Services.AddSingleton<MainPage>();
+
+        return builder.Build();
     }
 }
