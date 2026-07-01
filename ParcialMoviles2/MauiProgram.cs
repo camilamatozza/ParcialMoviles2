@@ -31,6 +31,7 @@ public static class MauiProgram
 
         // Pages
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddTransient<SensoresPage>();
 
         return builder.Build();
     }

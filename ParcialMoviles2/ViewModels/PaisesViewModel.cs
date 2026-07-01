@@ -46,9 +46,9 @@ public partial class PaisesViewModel : ObservableObject
         {
             Mensaje = "❌ Sin conexión o error del servidor. Intentá de nuevo.";
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            Mensaje = "❌ Ocurrió un error inesperado. Intentá de nuevo.";
+            Mensaje = $"❌ Error: {ex.GetType().Name} - {ex.Message}";
         }
         finally
         {
